@@ -71,8 +71,10 @@ Chương trình được thiết kế với bộ phím tắt linh hoạt để t
 ---
 
 ## 🖼️ Demo Hình ảnh
-> ![Kỹ thuật Tô bóng Phong (Phong Shading)](images/PhongShading.png)
-> ![Kỹ thuật Tô bóng Gouraud (Gouraud Shading)](images/GouraudShading.png)
+**1. Kỹ thuật Tô bóng Phong (Phong Shading):**
+![Kỹ thuật Tô bóng Phong (Phong Shading)](images/PhongShading.png)
+**2. Kỹ thuật Tô bóng Gouraud (Gouraud Shading):**
+![Kỹ thuật Tô bóng Gouraud (Gouraud Shading)](images/GouraudShading.png)
 
 ---
 
