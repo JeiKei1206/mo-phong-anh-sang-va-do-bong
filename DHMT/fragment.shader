@@ -18,7 +18,7 @@ uniform bool green;
 in vec3 fragment_position; //interpolated
 in vec3 normal;
 
-flat in vec3 col;
+in vec3 col;
 
 void main()
 {

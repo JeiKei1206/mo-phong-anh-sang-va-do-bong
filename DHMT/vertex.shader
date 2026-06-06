@@ -24,7 +24,7 @@ uniform bool blue;
 out vec3 fragment_position;
 out vec3 normal;
 
-flat out vec3 col;
+out vec3 col;
 
 void main()
 {

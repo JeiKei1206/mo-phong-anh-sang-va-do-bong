@@ -140,21 +140,21 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\fragment.shader" />
-    <None Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\vertex.shader" />
+    <None Include="fragment.shader" />
     <None Include="packages.config" />
+    <None Include="vertex.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\IndexObjLoader.h" />
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\OBJloader.h" />
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\objloaderIndex.h" />
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\shaderloader.h" />
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\stdafx.h" />
-    <ClInclude Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\targetver.h" />
+    <ClInclude Include="IndexObjLoader.h" />
+    <ClInclude Include="OBJloader.h" />
+    <ClInclude Include="objloaderIndex.h" />
+    <ClInclude Include="shaderloader.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\Main.cpp" />
-    <ClCompile Include="E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\stdafx.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
