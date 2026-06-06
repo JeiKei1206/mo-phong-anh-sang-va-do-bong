@@ -71,9 +71,8 @@ Chương trình được thiết kế với bộ phím tắt linh hoạt để t
 ---
 
 ## 🖼️ Demo Hình ảnh
-*(Chèn ảnh chụp màn hình chương trình tại đây)*
-> ![Placeholder for Demo 1](https://via.placeholder.com/800x450?text=Screenshot+1:+Blinn-Phong+Lighting)
-> ![Placeholder for Demo 2](https://via.placeholder.com/800x450?text=Screenshot+2:+Smooth+Normals+Comparison)
+> ![Kỹ thuật Tô bóng Phong (Phong Shading)](E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master/PhongShading.png)
+> ![Kỹ thuật Tô bóng Gouraud (Gouraud Shading)](E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master/GouraudShading.png)
 
 ---
 
