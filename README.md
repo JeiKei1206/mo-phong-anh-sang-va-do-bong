@@ -71,8 +71,8 @@ Chương trình được thiết kế với bộ phím tắt linh hoạt để t
 ---
 
 ## 🖼️ Demo Hình ảnh
-> ![Kỹ thuật Tô bóng Phong (Phong Shading)](E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master/PhongShading.png)
-> ![Kỹ thuật Tô bóng Gouraud (Gouraud Shading)](E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master/GouraudShading.png)
+> ![Kỹ thuật Tô bóng Phong (Phong Shading)](images/PhongShading.png)
+> ![Kỹ thuật Tô bóng Gouraud (Gouraud Shading)](images/GouraudShading.png)
 
 ---
 
