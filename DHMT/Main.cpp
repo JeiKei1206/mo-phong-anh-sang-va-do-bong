@@ -126,7 +126,6 @@ struct MeshData {
 	int indexCount;
 };
 
-// Hàm cài đặt Mesh cho Phong (Mượt)
 MeshData setupPhongMesh(const char* path) {
 	std::vector<int> ind;
 	std::vector<glm::vec3> vert, norm;
@@ -154,7 +153,6 @@ MeshData setupPhongMesh(const char* path) {
 	return mesh;
 }
 
-// Hàm cài đặt Mesh cho Gouraud (Gãy khúc)
 MeshData setupGouraudMesh(const char* path) {
 	std::vector<int> ind;
 	std::vector<glm::vec3> vert, norm;
@@ -193,15 +191,10 @@ int main()
 	GLuint shader = loadSHADER("vertex.shader", "fragment.shader");
 	glUseProgram(shader);
 
-	// Load 2 bộ dữ liệu riêng biệt cho Pokeball
 	MeshData pokePhong = setupPhongMesh("pokeball.obj");
 	MeshData pokeGouraud = setupGouraudMesh("pokeball.obj");
-
-	// Load 2 bộ dữ liệu riêng biệt cho Heart
 	MeshData heartPhong = setupPhongMesh("heart.obj");
 	MeshData heartGouraud = setupGouraudMesh("heart.obj");
-
-	// Load 2 bộ dữ liệu riêng biệt cho Teapot
 	MeshData teapotPhong = setupPhongMesh("teapot.obj");
 	MeshData teapotGouraud = setupGouraudMesh("teapot.obj");
 
@@ -211,6 +204,7 @@ int main()
 	GLuint vm_loc = glGetUniformLocation(shader, "vm");
 	GLuint pm_loc = glGetUniformLocation(shader, "pm");
 	GLuint mm_loc = glGetUniformLocation(shader, "mm");
+	GLuint is_poke_loc = glGetUniformLocation(shader, "is_pokeball");
 
 	glUniformMatrix4fv(pm_loc, 1, GL_FALSE, glm::value_ptr(proj_matrix));
 	glUniform3fv(glGetUniformLocation(shader, "light_color"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
@@ -219,11 +213,9 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		glUseProgram(shader);
 
 		glm::mat4 view_matrix = glm::lookAt(cam_pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -236,10 +228,11 @@ int main()
 
 		glm::mat4 global_transform = glm::translate(glm::mat4(1.0f), modl_move) * model;
 
-		if (activeModel == 1) { // 1. Pokeball
-			glm::mat4 poke_model = glm::scale(global_transform, glm::vec3(0.03f)); 
+		if (activeModel == 1) { // Pokeball
+			glUniform1i(is_poke_loc, true);
+			glm::mat4 poke_model = glm::rotate(global_transform, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			poke_model = glm::scale(poke_model, glm::vec3(0.03f)); 
 			glUniformMatrix4fv(mm_loc, 1, 0, glm::value_ptr(poke_model));
-			glUniform3fv(glGetUniformLocation(shader, "object_color"), 1, glm::value_ptr(glm::vec3(0.9f, 0.1f, 0.1f))); 
 			if (flag) {
 				glBindVertexArray(pokeGouraud.VAO);
 				glDrawElements(GL_TRIANGLES, pokeGouraud.indexCount, GL_UNSIGNED_INT, 0);
@@ -248,7 +241,8 @@ int main()
 				glDrawElements(GL_TRIANGLES, pokePhong.indexCount, GL_UNSIGNED_INT, 0);
 			}
 		} 
-		else if (activeModel == 2) { // 2. Heart
+		else if (activeModel == 2) { // Heart
+			glUniform1i(is_poke_loc, false);
 			glm::mat4 heart_model = glm::rotate(global_transform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			heart_model = glm::scale(heart_model, glm::vec3(0.15f)); 
 			glUniformMatrix4fv(mm_loc, 1, 0, glm::value_ptr(heart_model));
@@ -261,11 +255,12 @@ int main()
 				glDrawElements(GL_TRIANGLES, heartPhong.indexCount, GL_UNSIGNED_INT, 0);
 			}
 		}
-		else if (activeModel == 3) { // 3. Teapot
+		else if (activeModel == 3) { // Teapot
+			glUniform1i(is_poke_loc, false);
 			glm::mat4 teapot_model = glm::rotate(global_transform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			teapot_model = glm::scale(teapot_model, glm::vec3(1.5f)); 
 			glUniformMatrix4fv(mm_loc, 1, 0, glm::value_ptr(teapot_model));
-			glUniform3fv(glGetUniformLocation(shader, "object_color"), 1, glm::value_ptr(glm::vec3(0.2f, 0.6f, 0.9f))); // Blue
+			glUniform3fv(glGetUniformLocation(shader, "object_color"), 1, glm::value_ptr(glm::vec3(0.2f, 0.6f, 0.9f))); 
 			if (flag) {
 				glBindVertexArray(teapotGouraud.VAO);
 				glDrawElements(GL_TRIANGLES, teapotGouraud.indexCount, GL_UNSIGNED_INT, 0);
@@ -278,7 +273,6 @@ int main()
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
-
 	glfwTerminate();
 	return 0;
 }
