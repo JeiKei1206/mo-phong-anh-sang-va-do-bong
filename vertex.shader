@@ -9,16 +9,7 @@ uniform mat4 mm;
 
 uniform vec3 light_color;
 uniform vec3 light_position;
-uniform vec3 object_color;
 uniform vec3 view_position;
-uniform bool colour;
-uniform bool flag;
-uniform bool lights;
-uniform bool normalcol;
-uniform bool greyscale;
-uniform bool red;
-uniform bool green;
-uniform bool blue;
 
 out vec3 fragment_position;
 out vec3 normal;
@@ -30,56 +21,22 @@ void main()
 	fragment_position = vec3(mm * vec4(position, 1.0f));
 	gl_Position = pm * vm * mm * vec4(position, 1.0);
 
-	//ambient
+	// ambient
 	float ambient_strength = 0.25f;
 	vec3 ambient = ambient_strength * light_color;
 
-	//diffuse
+	// diffuse
+	vec3 norm = normalize(normal);
 	vec3 light_direction = normalize(light_position - fragment_position);
 	float diffuse_strength = 0.75f; 
-	vec3 diffuse = diffuse_strength * max(dot(normalize(normal), light_direction), 0.0) * light_color;
+	vec3 diffuse = diffuse_strength * max(dot(norm, light_direction), 0.0) * light_color;
 
-	//Specular
+	// Specular
 	vec3 view_direction = normalize(view_position - fragment_position);
 	float specular_strength = 1.0f;
 	vec3 halfway_dir = normalize(light_direction + view_direction);
-	vec3 specular = specular_strength * pow(max(dot(normal, halfway_dir), 0.0), 32) * light_color;	
+	vec3 specular = specular_strength * pow(max(dot(norm, halfway_dir), 0.0), 128) * light_color;	
 
-	//Gouraud
-	if (flag == true) {
-		if (lights == true) {
-			if (normalcol == true) {
-				col = normal;
-			}
-			else {
-				col = ambient * object_color;
-			}
-		}
-		else {
-			if (normalcol == true) {
-				col = (specular + diffuse + ambient) * normal;
-			}
-			else {
-				col = (specular + diffuse + ambient) * object_color;
-				if (red == true) {
-					if (col.x != ((specular + diffuse + ambient) * object_color).x) {
-						col.x = ((specular + diffuse + ambient) * object_color).x;
-					} else col.x = 0;
-				}
-				if (green == true) {
-					if (col.y != ((specular + diffuse + ambient) * object_color).y) {
-						col.y = ((specular + diffuse + ambient) * object_color).y;
-					} else col.y = 0;
-				}
-				if (blue == true) {
-					if (col.z != ((specular + diffuse + ambient) * object_color).z) {
-						col.z = ((specular + diffuse + ambient) * object_color).z;
-					} else col.z = 0;
-				}
-				if (colour == true) {
-					col = (specular + diffuse + ambient) * object_color;
-				}
-			}
-		}
-	}
+	// Gouraud result (to be multiplied by object_color in fragment shader)
+	col = ambient + diffuse + specular;
 }

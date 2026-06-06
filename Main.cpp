@@ -30,6 +30,7 @@ glm::vec3 modl_move = glm::vec3(0, 0, 0);
 
 // Cấu hình cờ trạng thái Màu sắc và Ánh sáng
 bool wireframe = false; 
+bool flag = false;
 
 // Hàm xử lý sự kiện nhấn phím từ GLFW
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod)
@@ -67,10 +68,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (key == GLFW_KEY_B) model = glm::rotate(model, glm::radians(5.f), glm::vec3(1, 0, 0));
 	if (key == GLFW_KEY_N) model = glm::rotate(model, glm::radians(5.f), glm::vec3(0, 1, 0));
-	if (key == GLFW_KEY_E) model = glm::rotate(model, glm::radians(5.f), glm::vec3(0, 0, 1));
+	if (key == GLFW_KEY_M) model = glm::rotate(model, glm::radians(5.f), glm::vec3(0, 0, 1));
 
 	if (key == GLFW_KEY_Z) model = glm::scale(model, glm::vec3(1.1f));
 	if (key == GLFW_KEY_X) model = glm::scale(model, glm::vec3(0.9f));
+	
+	if (key == GLFW_KEY_E && action == GLFW_PRESS) flag = !flag;
 }
 
 double last_y_pos = 0;
@@ -195,6 +198,7 @@ int main()
 		glm::mat4 view_matrix = glm::lookAt(cam_pos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(vm_loc, 1, 0, glm::value_ptr(view_matrix));
 		glUniform3fv(glGetUniformLocation(shader, "view_position"), 1, glm::value_ptr(cam_pos));
+		glUniform1i(glGetUniformLocation(shader, "flag"), flag);
 
 		if (wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		else glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

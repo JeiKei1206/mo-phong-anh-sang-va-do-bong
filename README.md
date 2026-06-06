@@ -64,8 +64,9 @@ Chương trình được thiết kế với bộ phím tắt linh hoạt để t
 | **I / K** | Di chuyển Model Lên / Xuống |
 | **J / L** | Di chuyển Model sang Trái / Phải |
 | **U / O** | Di chuyển Model Tiến / Lùi |
-| **B / N / E** | Xoay Model quanh trục X / Y / Z |
+| **B / N / M** | Xoay Model quanh trục X / Y / Z |
 | **Z / X** | Phóng to / Thu nhỏ tỷ lệ mô hình |
+| **E** | Chuyển đổi kỹ thuật Shading (Phong ↔ Gouraud) |
 
 ---
 
