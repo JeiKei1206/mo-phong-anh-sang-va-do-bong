@@ -99,16 +99,35 @@ bool loadOBJ(
 		}
 
 	}
-	if (normalIndices.size() != 0)
-		out_normals.resize(temp_normals.size());
+	out_normals.clear();
+	out_normals.resize(temp_vertices.size(), glm::vec3(0.0f, 0.0f, 0.0f));
+
 	if (uvIndices.size() != 0)
-		out_uvs.resize(temp_normals.size());
+		out_uvs.resize(temp_vertices.size());
+
+	for (unsigned int i = 0; i < vertexIndices.size(); i += 3) {
+		int v0 = vertexIndices[i];
+		int v1 = vertexIndices[i + 1];
+		int v2 = vertexIndices[i + 2];
+
+		glm::vec3 p0 = temp_vertices[v0];
+		glm::vec3 p1 = temp_vertices[v1];
+		glm::vec3 p2 = temp_vertices[v2];
+
+		glm::vec3 normal = glm::normalize(glm::cross(p1 - p0, p2 - p0));
+
+		out_normals[v0] += normal;
+		out_normals[v1] += normal;
+		out_normals[v2] += normal;
+	}
+	for (unsigned int i = 0; i < out_normals.size(); i++) {
+        if(glm::length(out_normals[i]) > 0.0001f) {
+		    out_normals[i] = glm::normalize(out_normals[i]);
+        }
+	}
+
 	for (unsigned int i = 0; i<vertexIndices.size(); i++) {
 		int vi = vertexIndices[i];
-		if (normalIndices.size() != 0) {
-			int ni = normalIndices[i];
-			out_normals[vi] = temp_normals[ni];
-		}
 		if (uvIndices.size() != 0 && i < uvIndices.size()) {
 			int ui = uvIndices[i];
 			out_uvs[vi] = temp_uvs[ui];

@@ -1,4 +1,3 @@
-
 #version 330 core
   
 layout (location = 0) in vec3 position;
@@ -7,7 +6,6 @@ layout(location = 1) in vec3 normals;
 uniform mat4 vm;
 uniform mat4 pm;
 uniform mat4 mm;
-uniform mat4 lightSpaceMatrix;
 
 uniform vec3 light_color;
 uniform vec3 light_position;
@@ -24,15 +22,12 @@ uniform bool blue;
 
 out vec3 fragment_position;
 out vec3 normal;
-out vec4 FragPosLightSpace;
-
 out vec3 col;
 
 void main()
 {
 	normal = mat3(transpose(inverse(mm))) * normals;
 	fragment_position = vec3(mm * vec4(position, 1.0f));
-	FragPosLightSpace = lightSpaceMatrix * vec4(fragment_position, 1.0);
 	gl_Position = pm * vm * mm * vec4(position, 1.0);
 
 	//ambient
@@ -41,7 +36,7 @@ void main()
 
 	//diffuse
 	vec3 light_direction = normalize(light_position - fragment_position);
-	float diffuse_strength = 0.75f; //use max so that it doesn't go negative
+	float diffuse_strength = 0.75f; 
 	vec3 diffuse = diffuse_strength * max(dot(normalize(normal), light_direction), 0.0) * light_color;
 
 	//Specular
@@ -52,17 +47,14 @@ void main()
 
 	//Gouraud
 	if (flag == true) {
-		
-		//Without Lighting
 		if (lights == true) {
 			if (normalcol == true) {
 				col = normal;
 			}
 			else {
-					col = ambient * object_color;
+				col = ambient * object_color;
 			}
 		}
-		//With Lighting
 		else {
 			if (normalcol == true) {
 				col = (specular + diffuse + ambient) * normal;
@@ -72,31 +64,20 @@ void main()
 				if (red == true) {
 					if (col.x != ((specular + diffuse + ambient) * object_color).x) {
 						col.x = ((specular + diffuse + ambient) * object_color).x;
-					}
-					else
-						col.x = 0;
+					} else col.x = 0;
 				}
-
 				if (green == true) {
 					if (col.y != ((specular + diffuse + ambient) * object_color).y) {
 						col.y = ((specular + diffuse + ambient) * object_color).y;
-					}
-					else
-						col.y = 0;
+					} else col.y = 0;
 				}
-
 				if (blue == true) {
 					if (col.z != ((specular + diffuse + ambient) * object_color).z) {
 						col.z = ((specular + diffuse + ambient) * object_color).z;
-					}
-					else
-						col.z = 0;
+					} else col.z = 0;
 				}
-
 				if (colour == true) {
-					if (col != (specular + diffuse + ambient) * object_color) {
-						col = (specular + diffuse + ambient) * object_color;
-					}
+					col = (specular + diffuse + ambient) * object_color;
 				}
 			}
 		}
