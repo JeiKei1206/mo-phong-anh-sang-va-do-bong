@@ -1,0 +1,314 @@
+% BIÊN DỊCH BẰNG: XeLaTeX (Bắt buộc để hỗ trợ fontspec và Times New Roman)
+\documentclass[13pt, a4paper]{extarticle} 
+
+% --- CẤU HÌNH TIẾNG VIỆT VÀ FONT CHỮ ---
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+\setmainfont{Times New Roman} 
+
+% --- CẤU HÌNH CĂN LỀ (MARGINS) ---
+% Lề: Top 2.5cm, Bottom 2.5cm, Left 3.5cm, Right 2cm
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2cm]{geometry}
+
+% --- CẤU HÌNH GIÃN DÒNG ---
+\usepackage{setspace}
+\onehalfspacing % Giãn dòng 1.5 lines
+
+% --- CẤU HÌNH ĐÁNH SỐ TRANG ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% --- CÁC GÓI BỔ TRỢ ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{indentfirst} 
+\usepackage{listings}    
+\usepackage{xcolor}
+\usepackage{titlesec}    
+\usepackage[unicode]{hyperref} 
+\usepackage{url}
+\usepackage{longtable}
+
+% Cấu hình tiêu đề các cấp (Loại bỏ đánh số cứng, để LaTeX tự đánh số)
+\titleformat{\section}{\bfseries\large\uppercase}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\bfseries\normalsize}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\bfseries\normalsize}{\thesubsubsection.}{0.5em}{}
+
+\begin{document}
+
+% ======================================================
+% TRANG BÌA
+% ======================================================
+\begin{titlepage}
+    \begin{center}
+        \textbf{\large ĐẠI HỌC ĐÀ NẴNG}\\
+        \textbf{\large TRƯỜNG ĐẠI HỌC BÁCH KHOA}\\
+        \textbf{\large KHOA CÔNG NGHỆ THÔNG TIN}\\
+        ---------- o0o ----------\\
+        
+        \vspace{4cm}
+        \textbf{\Large BÁO CÁO ĐỒ ÁN}\\
+        \textbf{\huge MÔN HỌC: ĐỒ HỌA MÁY TÍNH}\\
+        
+        \vspace{1.5cm}
+        \begin{minipage}{0.8\textwidth}
+            \centering
+            \textbf{\Large ĐỀ TÀI: MÔ PHỎNG ÁNH SÁNG VÀ ĐỔ BÓNG TRONG OPENGL}
+        \end{minipage}
+
+        \vspace{4cm}
+        \begin{flushright}
+            \begin{tabular}{ll}
+                \textbf{Sinh viên thực hiện:} & Đinh Nguyễn Anh Khoa \\
+                \textbf{Mã số sinh viên:} & 102240088 \\
+                \textbf{Lớp:}                 & 22T\_DT1 \\
+                \textbf{Giảng viên hướng dẫn:} & TS. Nguyễn Văn A
+            \end{tabular}
+        \end{flushright}
+
+        \vfill
+        \textbf{Đà Nẵng, Năm 2024}
+    \end{center}
+\end{titlepage}
+
+% ======================================================
+% CÁC DANH MỤC
+% ======================================================
+\newpage
+\pagenumbering{roman}
+\tableofcontents 
+
+\newpage
+\listoffigures
+
+\newpage
+\listoftables
+
+\newpage
+\section*{DANH SÁCH TỪ VIẾT TẮT}
+\addcontentsline{toc}{section}{DANH SÁCH TỪ VIẾT TẮT}
+\begin{center}
+\begin{longtable}{|p{3cm}|p{10cm}|}
+\hline
+\textbf{Viết tắt} & \textbf{Ý nghĩa đầy đủ} \\ \hline
+OpenGL & Open Graphics Library \\ \hline
+GPU & Graphics Processing Unit \\ \hline
+API & Application Programming Interface \\ \hline
+GLSL & OpenGL Shading Language \\ \hline
+VAO & Vertex Array Object \\ \hline
+VBO & Vertex Buffer Object \\ \hline
+EBO & Element Buffer Object \\ \hline
+MVP & Model View Projection \\ \hline
+OBJ & Object File Format \\ \hline
+PBR & Physically Based Rendering \\ \hline
+\end{longtable}
+\end{center}
+
+\newpage
+\section*{BẢNG PHÂN CÔNG CÔNG VIỆC}
+\addcontentsline{toc}{section}{BẢNG PHÂN CÔNG CÔNG VIỆC}
+\begin{center}
+\begin{longtable}{|p{1cm}|p{4.5cm}|p{2cm}|p{5cm}|p{1.5cm}|}
+\hline
+\textbf{STT} & \textbf{Họ và tên} & \textbf{MSSV} & \textbf{Nhiệm vụ} & \textbf{Kết quả} \\ \hline
+1 & Đinh Nguyễn Anh Khoa & 102240088 & Thiết kế kiến trúc tổng thể, lập trình Shader chiếu sáng (Phong/Gouraud), quản lý vòng lặp Render, viết báo cáo. & 100\% \\ \hline
+2 & Võ Thị Kim Tiền & 102240113 & Viết bộ nạp mô hình OBJ, phân tích tệp định dạng 3D, thiết lập bộ nhớ VAO, VBO, EBO trên GPU. & 100\% \\ \hline
+3 & Nguyễn Trần Thắng Trung & 102240118 & Lập trình hệ thống ma trận Camera tương tác thời gian thực, xử lý đầu vào bàn phím/chuột, chạy thử nghiệm AI. & 100\% \\ \hline
+\end{longtable}
+\end{center}
+
+\newpage
+\pagenumbering{arabic}
+% ======================================================
+% MỞ ĐẦU
+% ======================================================
+\section*{MỞ ĐẦU}
+\addcontentsline{toc}{section}{MỞ ĐẦU}
+
+\subsection*{Tổng quan về đề tài}
+Trong lĩnh vực khoa học máy tính, đồ họa 3D đóng vai trò then chốt trong việc tái tạo thế giới thực vào không gian số. Ứng dụng của nó trải dài từ các phần mềm thiết kế kỹ thuật, y khoa cho tới những trò chơi điện tử và công nghệ thực tế ảo. Để đạt được sự chân thực, việc mô phỏng cách ánh sáng tương tác với vật chất là yếu tố quan trọng nhất. Ánh sáng không chỉ định hình thể tích, độ sâu của vật thể mà còn cung cấp cho mắt người cảm nhận về chất liệu bề mặt. Đề tài này tập trung vào việc nghiên cứu các kỹ thuật Shading cơ bản như Phong và Gouraud để hiểu rõ quy trình xử lý đồ họa hiện đại trên kiến trúc máy tính.
+
+\subsection*{Mục đích và ý nghĩa}
+\subsubsection*{Mục đích}
+Nghiên cứu cấu trúc và cách vận hành của Pipeline đồ họa (Graphics Pipeline). Hiện thực hóa các thuật toán chiếu sáng cục bộ kinh điển bằng ngôn ngữ Shader GLSL trên nền tảng OpenGL lõi (Core Profile). Xây dựng một phần mềm hoàn chỉnh có khả năng đọc tệp mô hình tiêu chuẩn, khởi tạo bộ nhớ đồ họa và áp dụng linh hoạt các thuật toán chiếu sáng.
+
+\subsubsection*{Ý nghĩa}
+Giúp sinh viên làm chủ công nghệ lập trình đồ họa cấp thấp (Low-level graphics API), hiểu sâu về cách quản lý bộ đệm và tối ưu hóa hiệu năng tính toán ma trận trực tiếp trên GPU. Đồng thời, qua việc tích hợp thử nghiệm trí tuệ nhân tạo (Neural Rendering), đề tài cung cấp sự so sánh mang tính thời sự giữa đồ họa quang học thuần túy và AI.
+
+\subsection*{Phương pháp thực hiện}
+Đề tài sử dụng ngôn ngữ C/C++ nhờ đặc tính hiệu năng cao, kết hợp chặt chẽ với thư viện đồ họa OpenGL 4.3. Các mã lệnh tính toán quang học được viết bằng GLSL để xử lý song song trên GPU. Dự án cũng xây dựng bộ nạp mô hình OBJ (Parser) tùy chỉnh thủ công nhằm nắm rõ tận gốc cách thức lưu trữ và biểu diễn dữ liệu hình học đa giác (Polygonal Mesh).
+
+\subsection*{Bố cục của báo cáo}
+Báo cáo được cấu trúc thành ba chương chính: 
+Chương 1 trình bày cơ sở lý thuyết về các mô hình chiếu sáng và kỹ thuật Shading; 
+Chương 2 đi sâu vào phân tích thiết kế hệ thống phần mềm, từ cấu trúc dữ liệu mảng đỉnh đến logic điều khiển Rasterization; 
+Chương 3 trình bày chi tiết các kết quả thực nghiệm đạt được thông qua hình ảnh minh họa và đánh giá độ chênh lệch hiệu năng.
+
+\newpage
+% ======================================================
+% CHƯƠNG 1
+% ======================================================
+\section{CƠ SỞ LÝ THUYẾT}
+
+\subsection{Mô hình chiếu sáng Phong và Blinn-Phong}
+Mô hình chiếu sáng Phong là mô hình phản xạ quang học mô phỏng sự tương tác của ánh sáng chiếu lên bề mặt vật thể. Mô hình chia ánh sáng thành ba thành phần:
+\begin{itemize}
+    \item \textbf{Ambient (Môi trường):} Giả lập các tia sáng bật nảy nhiều lần trong không gian, làm cho các vùng khuất sáng không bị tối đen hoàn toàn. Cường độ này thường là một hằng số nhỏ.
+    \item \textbf{Diffuse (Khuếch tán):} Dựa trên định luật cosin Lambert, cường độ ánh sáng tỉ lệ thuận với góc giữa vector pháp tuyến bề mặt (Normal) và vector hướng tới nguồn sáng (Light Direction).
+    \item \textbf{Specular (Phản xạ chói):} Tạo ra điểm sáng lóa trên bề mặt trơn bóng. Cường độ chói mạnh nhất khi góc nhìn của camera trùng với góc phản xạ của tia sáng.
+\end{itemize}
+Điểm yếu của Phong là tốn kém hiệu năng khi tính toán vector phản xạ liên tục. Để khắc phục, Blinn-Phong ra đời bằng cách sử dụng Halfway vector (vector phân giác giữa hướng nhìn và hướng sáng). Việc dùng tích vô hướng giữa pháp tuyến và Halfway vector giúp thuật toán chạy nhanh hơn đáng kể trên GPU mà vẫn duy trì được độ chói mịn màng.
+
+\subsection{Mô hình PBR (Physically Based Rendering)}
+PBR là kỹ thuật mô phỏng ánh sáng dựa trên vật lý thực tế, sử dụng các tham số cốt lõi như độ nhám (Roughness) và tính kim loại (Metallic). Khác với Phong, PBR bảo toàn năng lượng (ánh sáng phản xạ không bao giờ lớn hơn ánh sáng chiếu vào) và sử dụng hàm phân bố phản xạ hai chiều (BRDF) như mô hình Cook-Torrance. Điều này cho phép vật liệu phản ứng nhất quán và thực tế trong mọi điều kiện ánh sáng môi trường.
+
+\subsection{Global Illumination (Chiếu sáng toàn cục)}
+Global Illumination (GI) không chỉ tính toán ánh sáng chiếu trực tiếp từ nguồn sáng đến vật thể (Direct Lighting) mà còn mô phỏng các tia sáng bật nảy giữa các bề mặt trong không gian (Indirect Lighting). Kỹ thuật này giúp các vùng khuất sáng không bị đen kịt mà nhận được ánh sáng tán xạ từ môi trường xung quanh, tạo ra chiều sâu như hiện tượng Color Bleeding (màu sắc lây lan) và độ chân thực tối đa cho toàn bộ khung cảnh.
+
+\subsection{Kết chương}
+Những kiến thức lý thuyết nền tảng trong chương 1 đã vạch ra rõ sự khác biệt giữa các hệ thống chiếu sáng cục bộ và toàn cục. Đối với một dự án đồ họa thời gian thực, việc nắm chắc Phong và Blinn-Phong là chìa khóa để triển khai thành công các tập lệnh Shader trên phần cứng.
+
+\newpage
+% ======================================================
+% CHƯƠNG 2
+% ======================================================
+\section{PHÂN TÍCH THIẾT KẾ HỆ THỐNG}
+
+\subsection{Phát biểu bài toán}
+Bài toán đặt ra là cần xây dựng một ứng dụng đồ họa 3D bằng C++ có khả năng: Đọc và phân tích các tệp mô hình lưới đa giác (OBJ files), ánh xạ dữ liệu đa giác này vào VRAM của GPU, cung cấp khả năng điều khiển camera theo thời gian thực (FPS style) và mô phỏng chính xác thuật toán chiếu sáng với hai tùy chọn Gouraud và Phong.
+
+\subsection{Phân tích hiện trạng}
+Với các phiên bản OpenGL hiện đại (từ 3.3 trở lên), kiến trúc Fixed-Function Pipeline đã bị loại bỏ hoàn toàn. Thay vào đó là Programmable Pipeline, đòi hỏi lập trình viên phải trực tiếp thiết kế các đoạn mã GLSL (Shaders) để nhân ma trận tạo phối cảnh và tính toán cường độ ánh sáng, đồng thời phải tự quản lý bộ đệm đỉnh (Buffers). Điều này tuy làm tăng độ phức tạp của bài toán nhưng đem lại quyền kiểm soát tuyết đối cho chất lượng đồ họa.
+
+\subsection{Phân tích chức năng}
+\subsubsection{Đối tượng sử dụng}
+Phần mềm phục vụ sinh viên, lập trình viên đồ họa và các nhà nghiên cứu nhằm mục đích mô phỏng và học tập thuật toán Rendering.
+
+\subsubsection{Chức năng nạp và biến đổi mô hình}
+Tính năng này đảm nhiệm việc phân tích tệp .obj. Tệp lưu dữ liệu với các từ khóa: `v` (Vị trí đỉnh trong không gian 3D), `vt` (Tọa độ trải map Texture 2D), `vn` (Vector pháp tuyến) và `f` (Khai báo các mặt tam giác bằng cách gom các chỉ số lại). Bộ nạp thủ công của nhóm sẽ lặp qua tệp, bóc tách chuỗi, đồng bộ hóa các chỉ mục này thành các mảng vector tuyến tính để đưa xuống GPU.
+Để biến đổi hiển thị từ tọa độ gốc sang màn hình, hệ thống thực hiện nhân 3 ma trận: \textbf{Model Matrix} (tịnh tiến, xoay, scale vật thể), \textbf{View Matrix} (dịch chuyển thế giới theo hướng nhìn của camera) và \textbf{Projection Matrix} (bóp méo không gian tạo ra ảo giác phối cảnh gần to, xa nhỏ).
+
+\subsubsection{Chức năng mô phỏng ánh sáng}
+Quá trình này diễn ra hoàn toàn trong card đồ họa thông qua hai tệp Shader:
+\begin{itemize}
+    \item \textbf{Gouraud Shading:} Thuật toán chiếu sáng này áp dụng việc tính toán toàn bộ phương trình Ambient, Diffuse và Specular trực tiếp bên trong \textit{Vertex Shader} (mỗi đỉnh tính 1 lần). Sau đó, Fragment Shader chỉ đơn thuần nhận giá trị màu đã được Hardware tự động nội suy. Ưu điểm là tối ưu cực cao, nhưng nhược điểm là dải sáng Specular bị lệch, gãy khúc trên các lưới đa giác thưa.
+    \item \textbf{Phong Shading:} Vertex Shader chỉ làm nhiệm vụ tính ma trận và truyền vector Pháp tuyến ($N$), vector Vị trí ($FragPos$) xuống \textit{Fragment Shader}. Tại Fragment Shader, phương trình ánh sáng mới bắt đầu được tính toán riêng biệt cho hàng triệu pixel trên màn hình. Mặc dù tốn nhiều chu kỳ xử lý của GPU hơn, nhưng chất lượng độ bóng và dải sáng chói phản chiếu là hoàn hảo.
+\end{itemize}
+
+\subsubsection{Công nghệ sử dụng}
+C++ được sử dụng do tốc độ xử lý cấp thấp ưu việt. Hệ thống dùng thư viện GLFW để mở cửa sổ và nhận phím bấm, thư viện GLEW để nạp các hàm cốt lõi của OpenGL 4.3, và thư viện GLM để nhân ma trận, tính sin/cos, normalize vector cực nhanh giống hệt cú pháp GLSL.
+
+\subsection{Thiết kế cấu trúc dữ liệu}
+\subsubsection{Sơ đồ tổng thể}
+Dữ liệu tệp OBJ $\rightarrow$ Trình phân tích cú pháp C++ $\rightarrow$ Đóng gói mảng Float $\rightarrow$ Bộ nhớ RAM GPU (VBO/EBO) $\rightarrow$ Khớp cấu hình VAO $\rightarrow$ Draw Call $\rightarrow$ Vertex Shader $\rightarrow$ Fragment Shader $\rightarrow$ Khung hình Framebuffer.
+
+\subsubsection{Cấu trúc dữ liệu mảng (Vertices, Normals, Indices)}
+Trong RAM của hệ thống, dữ liệu được khai báo bằng các `std::vector<glm::vec3>` chứa hệ tọa độ $xyz$ của đỉnh và pháp tuyến. Tập hợp các đỉnh tạo nên các tam giác được lưu bằng mảng số nguyên `std::vector<int>` (Indices) để chuẩn bị cho quá trình vẽ theo chỉ số.
+
+\subsubsection{Cấu trúc bộ đệm (VAO, VBO, EBO)}
+Sử dụng các đối tượng OpenGL để lưu trữ trên VRAM:
+\begin{itemize}
+    \item \textbf{VBO (Vertex Buffer Object):} Khối bộ nhớ tĩnh chứa tọa độ, pháp tuyến.
+    \item \textbf{EBO (Element Buffer Object):} Khối bộ nhớ chứa mảng chỉ số (Indices) nhằm giảm tải dung lượng bằng cách tái sử dụng tọa độ đỉnh cho các mặt kề nhau.
+    \item \textbf{VAO (Vertex Array Object):} Ghi nhớ cấu hình liên kết. Khi gọi \texttt{glBindVertexArray(VAO)}, OpenGL lập tức kích hoạt đúng VBO và EBO cùng các pointer layout (Location 0 cho Vị trí, Location 1 cho Pháp tuyến) giúp lệnh \texttt{glDrawElements} chạy ổn định.
+\end{itemize}
+
+\subsection{Xây dựng chương trình}
+\subsubsection{Tổ chức thư mục}
+Dự án được phân cấp mạch lạc: các tệp header (.h) phục vụ đọc file OBJ ở riêng, tệp \texttt{Main.cpp} quản lý trạng thái chương trình và 2 tệp `.shader` riêng biệt chứa ngôn ngữ C-like GLSL.
+
+\subsubsection{Tập tin Main.cpp}
+Chứa hàm `main()`, quy trình khởi tạo cửa sổ, xử lý sự kiện ngắt chuột/phím (Callback). Bên trong vòng lặp Render vô tận, liên tục xóa bộ đệm độ sâu (Depth Buffer), tính toán lại View Matrix từ `cam\_pos` và `cam\_dir`, nạp các biến cấu hình (như vị trí ánh sáng, cờ bật tắt hiệu ứng) thông qua lệnh `glUniform`, và gửi lệnh vẽ khung hình ra thiết bị hiển thị bằng `glfwSwapBuffers`.
+
+\subsubsection{Tập tin Vertex và Fragment Shader}
+Vertex Shader làm nhiệm vụ cơ bản là nhân ma trận MVP để biến đổi tọa độ $xyz \rightarrow gl\_Position$. Fragment Shader tính toán phương trình $Color = (Ambient + Diffuse + Specular) \times ObjectColor$. Tại đây cũng chèn các lệnh điều kiện rẽ nhánh (if/else) để thay đổi sang chế độ đơn sắc (Red, Green, Blue) hoặc biến đổi hình ảnh sang màu xám (Greyscale) dựa trên tích vô hướng Dot-product.
+
+\subsection{Kết chương}
+Chương 2 đã thiết kế tổng thể kiến trúc phần mềm từ luồng truyền dữ liệu cấp thấp nhất giữa CPU và GPU, tới các cấu trúc bộ đệm cốt lõi. Đây là thiết kế bảo đảm cả sự linh hoạt và tốc độ khi mô phỏng số lượng lớn đa giác trong thời gian thực.
+
+\newpage
+% ======================================================
+% CHƯƠNG 3
+% ======================================================
+\section{TRIỂN KHAI VÀ ĐÁNH GIÁ KẾT QUẢ}
+
+\subsection{Mô hình triển khai}
+\subsubsection{Môi trường triển khai}
+Hệ thống được phát triển, biên dịch và thực thi trên phần mềm Microsoft Visual Studio phiên bản 2019/2022. Cấu hình giải pháp (Solution) được cấu hình chuẩn cho nền tảng x64.
+
+\subsubsection{Các công cụ sử dụng}
+Sử dụng MSVC Compiler của Windows, cùng hệ thống Git để quản lý phiên bản. Trong bước mở rộng có sử dụng Python và framework học sâu PyTorch.
+
+\subsubsection{Cấu hình hệ thống}
+Dự án yêu cầu hệ thống PC/Laptop có hệ điều hành Windows, card đồ họa rời (NVIDIA/AMD) hoặc GPU tích hợp hiện đại có hỗ trợ tối thiểu tập lệnh OpenGL 4.3 (Core Profile) để đảm bảo các lệnh shader chạy đúng đặc tả kỹ thuật.
+
+\subsection{Kết quả thực nghiệm}
+
+\subsubsection{Kịch bản 1: Nạp và hiển thị mô hình 3D}
+Trong kịch bản đầu tiên, phần mềm khởi động, đọc file Pokeball.obj (gồm hàng vạn tọa độ). Chương trình áp dụng thành công hệ tọa độ 3D và Projection Matrix, hiển thị mô hình ở giữa không gian một cách chính xác. Người dùng sử dụng các phím tịnh tiến để xoay, lùi xa và quan sát vật thể từ nhiều góc độ.
+\begin{figure}[H] \centering \rule{10cm}{6cm} \caption{Minh họa kết quả nạp và định vị chính xác mô hình 3D trên tọa độ} \end{figure}
+
+\subsubsection{Kịch bản 2: Tương tác ánh sáng Phong và Gouraud}
+Hệ thống kích hoạt chiếu sáng với vị trí đèn đặt bên trên góc phải. Khi bật phím chuyển sang Gouraud, dải sáng bị vỡ thành nhiều bậc thang hiển thị khá "cứng". Khi chuyển lại sang Phong, độ láng mịn hoàn hảo của chất liệu nhựa bóng lập tức được thể hiện nhờ Fragment Shader thực thi việc tính toán độ sáng trên hàng triệu pixel riêng rẽ.
+\begin{figure}[H] \centering \rule{10cm}{6cm} \caption{So sánh khác biệt độ bóng bề mặt giữa Phong và Gouraud Shading} \end{figure}
+
+\subsubsection{Kịch bản 3: Chế độ Wireframe và điều khiển màu}
+Nhấn phím chức năng để kích hoạt chế độ \texttt{GL\_LINE}, chương trình biến khối đa giác kín thành khung lưới thép (Wireframe) mỏng, giúp người dùng phân tích được mật độ tam giác cấu tạo nên hình. Các phím 1, 2, 3 được kích hoạt để sử dụng bộ lọc màu R/G/B.
+\begin{figure}[H] \centering \rule{10cm}{6cm} \caption{Chế độ vẽ lưới Wireframe và sử dụng chức năng lọc kênh màu quang học} \end{figure}
+
+\subsubsection{Kịch bản 4: Thử nghiệm Neural Rendering}
+Đoạn mã Python `neural\_shader.py` được thực thi riêng biệt. Một mạng đa tầng (MLP) với 2 lớp ẩn được khởi tạo. Bằng cách nhập vector pháp tuyến và hướng camera, Neural Network dự đoán trực tiếp cường độ màu sắc thay thế cho các phép tính $Dot()$, $Max()$, $Pow()$ của OpenGL. Tuy chỉ là bản chứng minh khái niệm (PoC), hệ thống đã cho ra màu sắc tương quan khá tốt.
+
+\subsection{Nhận xét đánh giá kết quả}
+Đồ án đã tiến hành thử nghiệm nâng cao việc ứng dụng Neural Rendering (kết xuất đồ họa bằng AI) bằng Python để tính toán ánh sáng. So sánh giữa phương pháp truyền thống (OpenGL Shaders) và AI cho thấy:
+\begin{itemize}
+    \item \textbf{Phương pháp truyền thống (Rasterization + Phong Shading):} Tốc độ xử lý cực kỳ nhanh, đáp ứng tốt thời gian thực (Real-time) ở tốc độ khung hình cao. Logic toán học tất định giúp dễ dàng kiểm soát kết quả. Tuy nhiên, để đạt được độ chân thực cực cao như Global Illumination hay PBR thì yêu cầu sức mạnh phần cứng GPU rất lớn.
+    \item \textbf{Neural Rendering (AI):} Sử dụng mạng nơ-ron để học và dự đoán cách ánh sáng tương tác với vật thể. Khả năng tái tạo các chi tiết phức tạp như đổ bóng mềm, ánh sáng tán xạ rất tốt. Tuy nhiên, nhược điểm chí mạng là thời gian huấn luyện (training) lâu và quá trình dự đoán (inference) tốn kém tài nguyên, khó ứng dụng ngay cho các hệ thống thời gian thực.
+\end{itemize}
+
+\subsection{Kết chương}
+Quá trình đánh giá thực nghiệm đã chứng minh dự án chạy trơn tru, xử lý hình ảnh ổn định, phản hồi thời gian thực và thực thi rất tốt các công thức chiếu sáng phức tạp.
+
+\newpage
+% ======================================================
+% KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN
+% ======================================================
+\section*{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+\addcontentsline{toc}{section}{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+
+\subsection*{1. Kết quả đạt được}
+Thông qua đồ án "Mô phỏng ánh sáng và đổ bóng trong OpenGL", nhóm đã đạt được các kết quả nổi bật:
+\begin{itemize}
+    \item Tự xây dựng thành công bộ xử lý tệp tin OBJ, làm chủ cách thiết lập và truyền tải dữ liệu đa giác quy mô lớn vào bộ nhớ đồ họa (VAO, VBO, EBO).
+    \item Khởi tạo cấu trúc Programmable Pipeline vững chắc, viết và biên dịch các tệp GLSL Shader để tính toán các ma trận biến đổi (MVP).
+    \item Lập trình hiện thực hóa chính xác các thuật toán ánh sáng cục bộ (Phong, Gouraud). So sánh và làm rõ ưu nhược điểm của việc nội suy ở Vertex so với Fragment Shader.
+    \item Tiến hành nghiên cứu độc lập và chạy thử mô hình Neural Rendering sơ khai, mở ra nhận thức mới về công nghệ đồ họa thế hệ tiếp theo.
+\end{itemize}
+
+\subsection*{2. Kiến nghị và hướng phát triển}
+Hệ thống hiện tại đang sử dụng các ánh sáng cơ bản và mô phỏng đổ bóng trên bề mặt bản thân vật thể. Những định hướng phát triển để nâng cấp phần mềm trong tương lai bao gồm:
+\begin{itemize}
+    \item Triển khai thuật toán \textbf{Shadow Mapping} bằng cách thiết lập một Framebuffer ngoại tuyến (Off-screen) để kết xuất bản đồ độ sâu (Depth Map) từ điểm nhìn của nguồn sáng, từ đó tạo ra những dải bóng đổ lên mặt đất hoặc lên các vật thể khác.
+    \item Nâng cấp thuật toán chiếu sáng từ Blinn-Phong sang chuẩn \textbf{Physically Based Rendering (PBR)}, hỗ trợ khả năng phân tích các vật liệu nhám, kim loại và điện môi, đi kèm với việc áp dụng các tập tin Texture như Albedo, Normal Map, và Ambient Occlusion.
+\end{itemize}
+
+\newpage
+% ======================================================
+% TÀI LIỆU THAM KHẢO & PHỤ LỤC
+% ======================================================
+\begin{thebibliography}{9}
+\addcontentsline{toc}{section}{TÀI LIỆU THAM KHẢO}
+\bibitem{ref1} Joey de Vries, \textit{Learn OpenGL: Extensive tutorial resource for learning Modern OpenGL}, 2020, truy cập từ \url{https://learnopengl.com/}.
+\bibitem{ref2} The Khronos Group, \textit{OpenGL 4.3 Core Profile Specification}, Khronos.org.
+\bibitem{ref3} John Kessenich, Graham Sellers, Dave Shreiner, \textit{OpenGL Programming Guide: The Official Guide to Learning OpenGL, Version 4.5}, Addison-Wesley.
+\bibitem{ref4} Christophe Riccio, \textit{GLM - OpenGL Mathematics Documentation}, truy cập từ \url{https://glm.g-truc.net/}.
+\end{thebibliography}
+
+\end{document}

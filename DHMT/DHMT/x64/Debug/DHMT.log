@@ -1,0 +1,5 @@
+﻿  Main.cpp
+E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\Main.cpp(378,44): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  stdafx.cpp
+  Generating Code...
+  DHMT.vcxproj -> E:\Hoctap\Ky4\Dohoamaytinh\Dev-Cpp 5.7.1\BaiTapDHMT\Phong-Gouraud-Lighting-OpenGL-master\DHMT\x64\Debug\DHMT.exe
