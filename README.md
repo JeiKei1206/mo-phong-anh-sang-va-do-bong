@@ -1,86 +1,99 @@
-# OpenGL 3D Model Viewer: Phong & Gouraud Lighting Simulation
+# 🌟 Mô Phỏng Chiếu Sáng 3D: Phong Shading & Neural Rendering
 
-Dự án mô phỏng hệ thống chiếu sáng và tương tác với mô hình 3D trong không gian ba chiều sử dụng ngôn ngữ C++ và thư viện đồ họa OpenGL. Chương trình cho phép người dùng nạp mô hình từ file `.obj`, tùy chỉnh các chế độ Shading (Phong/Gouraud), điều khiển kênh màu và tương tác Camera linh hoạt.
+[![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
+[![OpenGL](https://img.shields.io/badge/OpenGL-5586A4?style=for-the-badge&logo=opengl&logoColor=white)](https://www.opengl.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 🚀 Các tính năng chính
-
-- **Nạp mô hình 3D:** Hỗ trợ đọc dữ liệu từ file định dạng `.obj` (Vertices, Normals, Indices).
-- **Hệ thống chiếu sáng (Local Illumination):** 
-    - Chuyển đổi linh hoạt giữa **Phong/Blinn-Phong Shading** (tính toán tại từng pixel) và **Gouraud Shading** (tính toán tại đỉnh).
-    - Mô phỏng đầy đủ các thành phần ánh sáng: Ambient, Diffuse và Specular (sử dụng Halfway Vector của Blinn-Phong để xử lý ánh sáng chói mượt mà hơn).
-- **Tương tác thời gian thực:** 
-    - Điều khiển Camera theo phong cách FPS (di chuyển và xoay góc nhìn).
-    - Biến đổi mô hình (Transformation): Tịnh tiến, xoay 3 trục và thu phóng.
-- **Hiệu ứng hình ảnh & Màu sắc:**
-    - Bật/tắt hệ thống ánh sáng.
-    - Chế độ hiển thị đa dạng: Wireframe, Normal Mapping, Greyscale (Đen trắng).
-    - Tùy chỉnh các kênh màu đơn sắc (Red, Green, Blue) hoặc Full RGB.
-- **Demo Mở rộng (Neural Rendering):** 
-    - Tích hợp bản mẫu mô phỏng Shader bằng AI (PyTorch - `neural_shader.py`) để dự đoán màu sắc RGB thay cho công thức quang học truyền thống.
-
-## 🎮 Phím tắt điều khiển
-
-Hệ thống điều khiển được thiết kế tối ưu cho việc quan sát và tùy chỉnh mô hình:
-
-### 1. Điều khiển Camera (Góc nhìn)
-| Phím | Chức năng |
-| :--- | :--- |
-| **W / S** | Di chuyển Camera Tiến / Lùi |
-| **A / D** | Di chuyển Camera sang Trái / Phải |
-| **Mũi tên Trái / Phải** | Xoay góc nhìn sang Trái / Phải (Yaw) |
-| **Mũi tên Lên / Xuống** | Xoay góc nhìn Ngước lên / Cúi xuống (Pitch) |
-| **Chuột trái + Kéo dọc** | Thu nhỏ / Phóng to khoảng cách quan sát (Zoom) |
-
-### 2. Tương tác Mô hình (Transformation)
-| Phím | Chức năng |
-| :--- | :--- |
-| **I / K** | Di chuyển Model Lên / Xuống (Trục Y) |
-| **J / L** | Di chuyển Model sang Trái / Phải (Trục X) |
-| **Page Up / Page Down** | Di chuyển Model Gần lại / Xa ra (Trục Z) |
-| **B / N / E** | Xoay Model quanh trục X / Y / Z |
-| **O / P** | Phóng to / Thu nhỏ tỷ lệ mô hình (Scale) |
-
-### 3. Hiệu ứng Shading & Màu sắc
-| Phím | Chức năng |
-| :--- | :--- |
-| **1 / 2 / 3** | Bật/tắt kênh màu Đỏ (Red) / Xanh lá (Green) / Xanh dương (Blue) |
-| **4** | Chế độ hiển thị màu sắc đầy đủ (Full RGB) |
-| **5** | Chuyển đổi kỹ thuật Shading (**Phong** ↔ **Gouraud**) |
-| **6** | Bật / Tắt hệ thống chiếu sáng |
-| **M** | Hiển thị màu theo Vector pháp tuyến (Normal Mapping) |
-| **G** | Bật / Tắt chế độ đen trắng (Greyscale) |
-| **ESC** | Thoát chương trình |
-
-## 🛠 Môi trường & Thư viện sử dụng
-
-Để biên dịch và chạy dự án, hệ thống cần được cài đặt các thành phần sau:
-- **Ngôn ngữ:** C++ (chuẩn C++11 trở lên) và Python (cho thử nghiệm Neural Rendering).
-- **Đồ họa:** OpenGL 4.3 (Core Profile).
-- **Thư viện quản lý cửa sổ:** GLFW 3.
-- **Thư viện nạp hàm OpenGL:** GLEW.
-- **Thư viện toán học:** GLM (OpenGL Mathematics).
-
-## 📂 Cấu trúc dự án
-
-- `Main.cpp`: Chứa mã nguồn chính, vòng lặp Render, xử lý sự kiện đầu vào và thiết lập VAO/VBO.
-- `vertex.shader`: Xử lý biến đổi tọa độ đỉnh và tính toán ánh sáng cho chế độ Gouraud.
-- `fragment.shader`: Xử lý màu sắc pixel, tính toán ánh sáng cho chế độ Blinn-Phong và các bộ lọc màu.
-- `objloaderIndex.h`: Bộ nạp dữ liệu từ file `.obj` tùy chỉnh, hỗ trợ Indexing để tối ưu bộ nhớ.
-- `shaderloader.h`: Tiện ích hỗ trợ đọc, biên dịch và liên kết các file shader.
-- `neural_shader.py`: Tập lệnh Python minh họa Proof of Concept về Neural Rendering.
-
-## 🔨 Hướng dẫn cài đặt & Chạy
-
-1. **Chuẩn bị:** Cài đặt Visual Studio (khuyến nghị 2019 hoặc mới hơn).
-2. **Cấu hình thư viện:**
-   - Tải và cấu hình các thư viện `glfw`, `glew`, `glm` vào thư mục `include` và `lib` của dự án.
-   - Thêm các file `.dll` (`glew32.dll`, `glfw3.dll`) vào thư mục chứa file thực thi (.exe).
-3. **Thiết lập dự án:**
-   - Mở Solution trong Visual Studio.
-   - Chỉnh cấu hình build sang **x64** và chế độ **Release** (hoặc Debug).
-   - Trong `Project Properties > Linker > Input`, thêm: `opengl32.lib`, `glew32.lib`, `glfw3.lib`.
-4. **Biên dịch dự án C++:** Nhấn `Ctrl + F5` để biên dịch và chạy chương trình.
-5. **Chạy thử Neural Rendering:** Mở Terminal/Command Prompt, di chuyển đến thư mục dự án và chạy lệnh: `python neural_shader.py`
+Dự án đồ họa máy tính tập trung vào việc nghiên cứu và triển khai các kỹ thuật chiếu sáng hiện đại, từ các công thức quang học truyền thống đến ứng dụng trí tuệ nhân tạo trong việc mô phỏng bề mặt vật liệu.
 
 ---
-*Dự án được phát triển nhằm mục đích nghiên cứu các nguyên lý cơ bản của đồ họa máy tính 3D.*
+
+## 👥 Thông tin Nhóm thực hiện
+
+| STT | Họ và Tên | MSSV | Vai trò |
+| :--- | :--- | :--- | :--- |
+| 1 | **Đinh Nguyễn Anh Khoa** | 102240088 | Trưởng nhóm, Cấu hình Shader |
+| 2 | **Võ Thị Kim Tiền** | 102240113 | Xây dựng Model & Normal |
+| 3 | **Nguyễn Trần Thắng Trung** | 102240118 | Nghiên cứu Neural Rendering |
+
+---
+
+## 🚀 Tính năng & Kết quả đạt được
+
+### 1. Yêu cầu Cơ bản (Traditional Rendering)
+- **Lý thuyết:** Tìm hiểu sâu về các mô hình chiếu sáng **Phong**, **Blinn-Phong**, **PBR** (Physically Based Rendering) và **Global Illumination**.
+- **Thực thi:** Xây dựng ứng dụng C++/OpenGL thực hiện tô bóng Phong thời gian thực.
+- **Mô hình:** Tối ưu hóa việc nạp và hiển thị các mô hình phức tạp như `heart.obj` (Trái tim) và `pokeball.obj` (Quả cầu).
+- **Smooth Shading:** Triển khai thuật toán tự động tính toán **Smooth Normals** (Cross Product & Normal Averaging) cho các mô hình thiếu dữ liệu pháp tuyến, giúp bề mặt trơn mượt.
+
+### 2. Yêu cầu Nâng cao (Neural Rendering)
+- **AI Integration:** Ứng dụng mô hình mạng thần kinh (Neural Network) để dự đoán sự tương tác của ánh sáng trên bề mặt vật thể thay cho các công thức shader truyền thống.
+- **PoC:** Triển khai mã nguồn Python (`neural_shader.py`) minh họa việc huấn luyện và dự đoán màu sắc pixel dựa trên dữ liệu đầu vào.
+
+---
+
+## 📊 So sánh: Blinn-Phong vs. Neural Rendering
+
+| Đặc tính | Blinn-Phong (Truyền thống) | Neural Rendering (AI) |
+| :--- | :--- | :--- |
+| **Cơ sở logic** | Công thức toán học (Lamber, Blinn) | Mạng thần kinh (MLP/CNN) |
+| **Tốc độ xử lý** | Cực nhanh (Tính toán phần cứng) | Phụ thuộc vào kiến trúc mạng |
+| **Độ chân thực** | Xấp xỉ vật lý | Có thể học được các hiệu ứng phức tạp |
+| **Độ mượt** | Phụ thuộc mật độ lưới (Mesh) | Có khả năng nội suy mượt mà hơn |
+| **Tài nguyên** | Yêu cầu GPU Shader truyền thống | Yêu cầu Tensor Core / VRAM cao |
+
+---
+
+## 🎮 Hệ thống Điều khiển
+
+Chương trình được thiết kế với bộ phím tắt linh hoạt để tương tác tối đa với không gian 3D.
+
+### 🕹️ Điều khiển Camera (View Matrix)
+*Camera luôn tập trung nhìn về trung tâm (0,0,0) của hai vật thể.*
+
+| Phím | Hành động |
+| :--- | :--- |
+| **W** | Zoom Tiến (Lại gần vật thể) |
+| **S** | Zoom Lùi (Ra xa vật thể) |
+| **A** | Di chuyển Camera sang Trái |
+| **D** | Di chuyển Camera sang Phải |
+
+### 📦 Tương tác Vật thể (Model Matrix)
+| Phím | Hành động |
+| :--- | :--- |
+| **I / K** | Di chuyển Model Lên / Xuống |
+| **J / L** | Di chuyển Model sang Trái / Phải |
+| **U / O** | Di chuyển Model Tiến / Lùi |
+| **B / N / E** | Xoay Model quanh trục X / Y / Z |
+| **Z / X** | Phóng to / Thu nhỏ tỷ lệ mô hình |
+
+---
+
+## 🖼️ Demo Hình ảnh
+*(Chèn ảnh chụp màn hình chương trình tại đây)*
+> ![Placeholder for Demo 1](https://via.placeholder.com/800x450?text=Screenshot+1:+Blinn-Phong+Lighting)
+> ![Placeholder for Demo 2](https://via.placeholder.com/800x450?text=Screenshot+2:+Smooth+Normals+Comparison)
+
+---
+
+## 🛠️ Cài đặt Môi trường
+
+Để chạy dự án này trên máy địa phương, bạn cần chuẩn bị:
+
+1. **Công cụ lập trình:** 
+   - Visual Studio 2019/2022 (C++ Desktop Development).
+   - Python 3.8+ (Nếu muốn chạy module Neural Rendering).
+
+2. **Cấu hình thư viện OpenGL:**
+   - **GLFW 3:** Quản lý cửa sổ và Input.
+   - **GLEW:** Nạp các hàm OpenGL mở rộng.
+   - **GLM:** Thư viện toán học cho đồ họa (Matrix, Vector).
+
+3. **Cấu hình Visual Studio:**
+   - Thêm đường dẫn `include` vào `Additional Include Directories`.
+   - Thêm đường dẫn `lib` vào `Additional Library Directories`.
+   - Khai báo các file `.lib`: `opengl32.lib`, `glew32s.lib`, `glfw3.lib`.
+   - Đảm bảo các file `.dll` đi kèm nằm cùng thư mục với file `.exe` sau khi build.
+
+---
+*Bản quyền © 2026 Nhóm Đồ họa Máy tính - Đại học Bách Khoa - ĐHĐN*
