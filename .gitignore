@@ -1,1 +1,27 @@
+# Visual Studio
 .vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+*.user
+*.aps
+*.pdb
+*.ilk
+*.log
+*.tlog
+*.idb
+*.recipe
+*.ipch
+*.opendb
+*.db
+*.db-shm
+*.db-wal
+*.vsidx
+*.suo
+
+# NuGet Packages
+packages/
+!packages/repositories.config
