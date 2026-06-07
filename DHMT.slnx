@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="DHMT.vcxproj" Id="6be141c7-d26d-4fba-b0fe-7f42e712e88e" />
+</Solution>
