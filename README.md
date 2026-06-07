@@ -1,45 +1,3 @@
-<<<<<<< Updated upstream
-# Đồ án Đồ họa Máy tính - Phong & Gouraud Lighting
-
-Dự án này thực hiện mô phỏng chiếu sáng Phong và Gouraud trên các mô hình 3D (Pokeball, Heart, Teapot) sử dụng OpenGL.
-
-## Cấu trúc thư mục SOURCE
-
-Thư mục **SOURCE** là thư mục gốc của đồ án, chứa tất cả các thành phần cần thiết:
-
-- **DATA/**: Chứa các tài nguyên Shader (.shader) và mô hình 3D (.obj).
-- **BaoCao/**: Chứa các file báo cáo đồ án (.docx, .pdf, .tex).
-- **DHMT.slnx**: File Solution chính để mở dự án bằng Visual Studio.
-- **DHMT.vcxproj**: File cấu hình dự án C++.
-- **Main.cpp**: Mã nguồn chính của chương trình.
-- **shaderloader.h, objloaderIndex.h...**: Các file header hỗ trợ tải shader và mô hình.
-- **glew32.dll, glfw3.dll**: Các thư viện liên kết động cần thiết để chạy ứng dụng.
-- **packages/**: Chứa các thư viện phụ thuộc (GLM, NuGet packages).
-
-## Hướng dẫn chạy chương trình
-
-1. **Mở dự án**: Mở file `DHMT.slnx` bằng Visual Studio (Khuyên dùng bản 2022).
-2. **Cấu hình**: Đảm bảo chế độ build là `Debug` hoặc `Release` với nền tảng `x64` hoặc `x86`.
-3. **Chạy**: Nhấn `F5` hoặc nút `Start` trong Visual Studio để biên dịch và chạy.
-
-## Điều khiển trong chương trình
-
-- **Phím 1, 2, 3**: Chuyển đổi giữa các mô hình (Pokeball, Heart, Teapot).
-- **Phím E**: Bật/Tắt chế độ Gouraud Shading (Mặc định là Phong Shading).
-- **Phím W, A, S, D**: Di chuyển Camera.
-- **Phím mũi tên**: Xoay Camera.
-- **Phím I, K, J, L, U, O**: Di chuyển Mô hình.
-- **Phím B, N, M**: Xoay Mô hình.
-- **Phím Z, X**: Phóng to/Thu nhỏ Mô hình.
-- **Chuột trái**: Giữ và di chuyển dọc để Zoom Camera.
-- **ESC**: Thoát chương trình.
-
----
-**Nhóm thực hiện:**
-- sv102240088 - Khoa
-- sv102240118 - Trung
-- sv102240113 - Tiền
-=======
 <div align="center">
 
 # 🌟 Mô Phỏng Chiếu Sáng 3D
@@ -72,67 +30,51 @@ Dự án tập trung vào việc mô phỏng ánh sáng chiếu lên vật thể
   * Cài đặt mô hình chiếu sáng **Phong Shading**.
   * Cài đặt mô hình chiếu sáng **Gouraud Shading**.
   * Đã tối ưu hóa tính toán pháp tuyến mặt (**Smooth Normals**) để bề mặt vật thể hiển thị mượt mà và chân thực hơn.
-* 🧠 **Kỹ thuật Nâng cao (Python):**
-  * Tích hợp **Neural Rendering** sử dụng trí tuệ nhân tạo để tính toán và xấp xỉ ánh sáng thay vì dùng công thức toán lý thuần túy.
-
-### ⚖️ Bảng So Sánh Hai Kỹ Thuật
-
-| Tiêu chí | C++ / OpenGL (Truyền thống) | Python (Neural Rendering) |
-| :--- | :--- | :--- |
-| **Bản chất tính toán** | Dựa trên công thức quang học (Toán học điểm/mặt) | Dựa trên học máy (Mạng nơ-ron) |
-| **Kỹ thuật tiêu biểu** | Phong, Gouraud, Blinn-Phong | NeRF, Inverse Rendering |
-| **Độ chân thực** | Tốt, nhưng phụ thuộc vào số lượng đa giác (Polygons) | Rất cao, có thể mô phỏng ánh sáng thực tế cực kỳ phức tạp |
-| **Hiệu năng** | Tốc độ rất cao (Real-time), nhẹ, tính toán bằng GPU | Đòi hỏi tài nguyên phần cứng lớn, thời gian train/render lâu hơn |
 
 ---
 
 ## 🎮 Hệ Thống Điều Khiển
 
-Dự án hỗ trợ tương tác trực tiếp qua bàn phím để thao tác với Camera và mô hình 3D trong không gian thực tế ảo:
+Dự án hỗ trợ tương tác trực tiếp qua bàn phím để thao tác với Camera và mô hình 3D:
 
 | Nhóm | Phím tắt | Mô tả thao tác |
 | :--- | :---: | :--- |
-| 🎥 **Camera** | <kbd>W</kbd> / <kbd>A</kbd> / <kbd>S</kbd> / <kbd>D</kbd> | Di chuyển Camera (Tiến / Trái / Lùi / Phải) |
-| 🏎️ **Dịch chuyển** | <kbd>I</kbd> / <kbd>J</kbd> / <kbd>K</kbd> / <kbd>L</kbd> | Dịch chuyển vật thể 3D (Lên / Trái / Xuống / Phải) |
-| 🔄 **Xoay** | <kbd>B</kbd> / <kbd>N</kbd> / <kbd>M</kbd> | Xoay vật thể quanh các trục không gian tương ứng (X / Y / Z) |
+| 🎥 **Camera (Di chuyển)** | <kbd>W</kbd> / <kbd>A</kbd> / <kbd>S</kbd> / <kbd>D</kbd> | Di chuyển Camera (Tiến / Trái / Lùi / Phải) |
+| 🎥 **Camera (Góc nhìn)** | <kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd> | Xoay Camera (Lên / Xuống / Trái / Phải) |
+| 📦 **Chọn vật thể** | <kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> | Chuyển đổi giữa các mô hình (Pokeball / Heart / Teapot) |
+| 🏎️ **Dịch chuyển vật thể** | <kbd>I</kbd> / <kbd>J</kbd> / <kbd>K</kbd> / <kbd>L</kbd> | Di chuyển vật thể theo trục X (Trái/Phải) và Y (Lên/Xuống) |
+| 🏎️ **Dịch chuyển vật thể** | <kbd>U</kbd> / <kbd>O</kbd> | Di chuyển vật thể theo trục Z (Ra xa / Lại gần) |
+| 🔄 **Xoay vật thể** | <kbd>B</kbd> / <kbd>N</kbd> / <kbd>M</kbd> | Xoay vật thể quanh các trục không gian tương ứng (X / Y / Z) |
 | 🔍 **Thu phóng** | <kbd>Z</kbd> / <kbd>X</kbd> | Tỉ lệ kích thước mô hình (Phóng to / Thu nhỏ) |
 | ✨ **Đổi Shading**| <kbd>E</kbd> | Chuyển đổi qua lại giữa kỹ thuật **Phong Shading** và **Gouraud Shading** |
+| ❌ **Thoát** | <kbd>ESC</kbd> | Đóng ứng dụng |
 
 ---
 
-## 📂 Cấu Trúc Thư Mục
+## 🚀 Hướng Dẫn Chạy Dự Án (Dành cho Giáo viên)
 
-```text
-📦 THƯ MỤC GỐC
- ┣ 📂 DATA          # Chứa các tài nguyên 3D (pokeball.obj, heart.obj...) và file Shader (.shader)
- ┣ 📂 SOURCE        # Chứa mã nguồn C++ (OpenGL) và các script Python (Neural Rendering)
- ┣ 📜 *.sln         # File Project Solution của Visual Studio
- ┗ 📜 *.dll         # Các thư viện liên kết động đi kèm (GLEW, GLFW...)
-```
+Để đảm bảo dự án chạy ổn định trên Visual Studio, Thầy vui lòng thực hiện theo các bước sau:
+
+### 1. Giải nén
+* Giải nén toàn bộ thư mục bài làm vào một đường dẫn không chứa ký tự tiếng Việt có dấu (để tránh lỗi đọc file `.obj`).
+
+### 2. Mở dự án
+* Khởi động **Visual Studio** (khuyên dùng phiên bản 2019 hoặc 2022).
+* Vào thư mục vừa giải nén, tìm và mở file **`DHMT.slnx`** (hoặc `DHMT.sln` nếu có).
+
+### 3. Cấu hình & Chạy
+* Đảm bảo cấu hình Solution là **`Debug`** hoặc **`Release`** và nền tảng là **`x64`**.
+* Nhấn phím **`F5`** hoặc nhấn vào nút **Local Windows Debugger** để biên dịch và khởi chạy.
+
+> [!IMPORTANT]
+> **Lưu ý quan trọng:**
+> * Các thư viện (OpenGL, GLFW, GLEW, GLM) đã được cấu hình sẵn qua **NuGet Packages**. Nếu Visual Studio báo thiếu thư viện, Thầy vui lòng chuột phải vào **Solution** và chọn **Restore NuGet Packages**.
+> * Các file thư viện liên kết động (`.dll`) và thư mục `DATA` (chứa model, shader) đã được đặt sẵn trong thư mục gốc của Solution để chương trình có thể đọc trực tiếp.
 
 ---
-
-## 🚀 Hướng Dẫn Chạy Dự Án
-
-1. Khởi động Visual Studio (khuyên dùng bản 2019 hoặc 2022).
-2. Tìm đến thư mục đã giải nén, nhấp đúp vào file `.sln` để mở dự án.
-3. Nhấn phím **`F5`** (hoặc chọn nút *Local Windows Debugger*) để tiến hành biên dịch và chạy dự án.
-
-> 📌 ***Lưu ý:** Các cấu hình thư viện liên kết và đường dẫn tương đối để gọi file từ thư mục `DATA` đã được thiết lập sẵn trong Project. Bạn có thể chạy ngay mà không cần tinh chỉnh gì thêm.*
-
----
-
-## 🖼️ Hình Ảnh Demo
-
-### Phong Shading
-![Phong Shading Demo](images/PhongShading.png)
-
-### Gouraud Shading
-![Gouraud Shading Demo](images/GouraudShading.png)
 
 <br>
 
 <div align="center">
   <i>Được thực hiện bởi Nhóm sinh viên Đại học Bách khoa - ĐH Đà Nẵng</i>
 </div>
->>>>>>> Stashed changes
